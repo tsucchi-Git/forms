@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>応募フォーム</title>
+
+<style>
+
+body{
+    font-family:sans-serif;
+    background:#f5f5f5;
+}
+
+#applyButton{
+
+    display:block;
+    margin:40px auto;
+    padding:15px 40px;
+
+    font-size:20px;
+
+    background:#1976D2;
+    color:white;
+
+    border:none;
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+#formArea{
+
+    display:none;
+
+    width:500px;
+    max-width:90%;
+
+    margin:20px auto;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:25px;
+
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input,textarea{
+
+    width:100%;
+
+    padding:10px;
+
+    font-size:16px;
+
+    box-sizing:border-box;
+
+}
+
+#submitButton{
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    font-size:20px;
+
+    background:#43A047;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+#stampDisplay{
+
+    font-size:18px;
+
+    color:#d32f2f;
+
+    font-weight:bold;
+
+    margin-bottom:15px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<button id="applyButton">
+
+応募する
+
+</button>
+
+<div id="formArea">
+
+<h2>応募フォーム</h2>
+
+<div id="stampDisplay"></div>
+
+<form
+action="https://formspree.io/f/xojodbqd"
+method="POST">
+
+<input
+type="hidden"
+name="スタンプ数"
+id="stampCount">
+
+<label>氏名</label>
+
+<input
+type="text"
+name="氏名"
+required>
+
+<label>住所</label>
+
+<input
+type="text"
+name="住所"
+required>
+
+<label>メールアドレス</label>
+
+<input
+type="email"
+name="メールアドレス"
+required>
+
+<label>電話番号</label>
+
+<input
+type="text"
+name="電話番号">
+
+<label>コメント</label>
+
+<textarea
+name="コメント"
+rows="4"></textarea>
+
+<button
+type="submit"
+id="submitButton">
+
+送信する
+
+</button>
+
+</form>
+
+</div>
+
+<script>
+
+/*****************************************************
+ここでは例として localStorage に保存されている
+スタンプ数を利用しています。
+
+あなたのアプリでは保存方法に合わせて
+読み出してください。
+*****************************************************/
+
+let stampCount =
+Number(localStorage.getItem("stampCount")) || 0;
+
+document.getElementById("applyButton").onclick=function(){
+
+document.getElementById("formArea").style.display="block";
+
+document.getElementById("stampDisplay").innerHTML=
+"現在のスタンプ数："+stampCount+" 個";
+
+document.getElementById("stampCount").value=stampCount;
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+};
+
+</script>
+
+</body>
+
+</html>
