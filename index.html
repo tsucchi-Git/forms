@@ -191,7 +191,7 @@ if (applied === "true") {
 }
 //
 const REQUIRED = 6;
-const stampCount =9;
+const stampCount = 9;
 //Number(localStorage.getItem("stampCount")) || 0;
 
 const message = document.getElementById("message");
@@ -200,6 +200,7 @@ const button = document.getElementById("applyButton");
 button.disabled = true;
 button.innerHTML = "応募済み";
 //
+alert("スタンプ数:" + stampCount);
 if (stampCount >= REQUIRED){
 
     message.innerHTML =
