@@ -118,7 +118,6 @@ input,textarea{
 <h2>応募フォーム</h2>
 
 <div id="stampDisplay"></div>
-<div id="stampDisplay"></div>
 <div id="message"></div>
 
 <form
@@ -184,31 +183,35 @@ id="submitButton">
 あなたのアプリでは保存方法に合わせて
 読み出してください。
 *****************************************************/
+const message = document.getElementById("message");
+const button = document.getElementById("applyButton");
 //応募済みフラグを確認
 const applied = localStorage.getItem("applied");
 if (applied === "true") {
-    //応募済みならボタンを押せなくする
-    button.disabled = true;
-    button.innerHTML = "応募済み";
-    //
-    document.getElementById("applyButton").style.display = "none";
-    document.getElementById("message").innerHTML =
+
+    button.style.display = "none";
+
+    message.innerHTML =
     "この端末からは応募済みです。";
+
+    throw new Error("応募済み");
 }
 //
 const REQUIRED = 6;
 const stampCount = 9;
 //Number(localStorage.getItem("stampCount")) || 0;
 
-const message = document.getElementById("message");
-const button = document.getElementById("applyButton");
 alert("スタンプ数:" + stampCount);
 if (stampCount >= REQUIRED){
-    alert("メッセージ表示");
-    message.innerHTML =
-    "🎉 おめでとうございます！応募できます。";
 
-    button.style.display = "block";
+    if(applied !== "true"){
+
+        message.innerHTML =
+        "🎉 おめでとうございます！応募できます。";
+
+        button.style.display = "block";
+
+    }
 
 }else{
 
