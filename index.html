@@ -107,7 +107,7 @@ input,textarea{
 
 <body>
 
-<button id="applyButton">
+<button id="applyButton" style="display:none;">
 
 応募する
 
@@ -182,24 +182,58 @@ id="submitButton">
 あなたのアプリでは保存方法に合わせて
 読み出してください。
 *****************************************************/
-
-let stampCount =
+//応募済みフラグを確認
+const applied = localStorage.getItem("applied");
+if (applied === "true") {
+    document.getElementById("applyButton").style.display = "none";
+    document.getElementById("message").innerHTML =
+    "この端末からは応募済みです。";
+}
+//
+const REQUIRED = 6;
+const stampCount =
 Number(localStorage.getItem("stampCount")) || 0;
 
+const message = document.getElementById("message");
+const button = document.getElementById("applyButton");
+//応募済みならボタンを押せなくする
+button.disabled = true;
+button.innerHTML = "応募済み";
+//
+if (stampCount >= REQUIRED){
+
+    message.innerHTML =
+    "🎉 おめでとうございます！応募できます。";
+
+    button.style.display = "block";
+
+}else{
+
+    const remain = REQUIRED - stampCount;
+
+    message.innerHTML =
+    "応募にはあと " + remain + " 個のスタンプが必要です。";
+
+}
+
 document.getElementById("applyButton").onclick=function(){
-
-document.getElementById("formArea").style.display="block";
-
-document.getElementById("stampDisplay").innerHTML=
-"現在のスタンプ数："+stampCount+" 個";
-
-document.getElementById("stampCount").value=stampCount;
-
-window.scrollTo({
-top:document.body.scrollHeight,
-behavior:"smooth"
-});
-
+    document.getElementById("formArea").style.display="block";
+    document.getElementById("stampDisplay").innerHTML=
+    "現在のスタンプ数："+stampCount+" 個";
+    document.getElementById("stampCount").value=stampCount;
+    window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+    });
+    //送信したら応募済みにする
+    document.querySelector("form").addEventListener("submit", function(e){
+    if(!confirm("応募しますか？")){
+        e.preventDefault();
+        return;
+    }
+    localStorage.setItem("applied","true");
+    });
+    //
 };
 
 </script>
