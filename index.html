@@ -118,6 +118,8 @@ input,textarea{
 <h2>応募フォーム</h2>
 
 <div id="stampDisplay"></div>
+<div id="stampDisplay"></div>
+<div id="message"></div>
 
 <form
 action="https://formspree.io/f/xojodbqd"
@@ -185,6 +187,10 @@ id="submitButton">
 //応募済みフラグを確認
 const applied = localStorage.getItem("applied");
 if (applied === "true") {
+    //応募済みならボタンを押せなくする
+    button.disabled = true;
+    button.innerHTML = "応募済み";
+    //
     document.getElementById("applyButton").style.display = "none";
     document.getElementById("message").innerHTML =
     "この端末からは応募済みです。";
@@ -196,10 +202,6 @@ const stampCount = 9;
 
 const message = document.getElementById("message");
 const button = document.getElementById("applyButton");
-//応募済みならボタンを押せなくする
-button.disabled = true;
-button.innerHTML = "応募済み";
-//
 alert("スタンプ数:" + stampCount);
 if (stampCount >= REQUIRED){
     alert("メッセージ表示");
@@ -226,6 +228,8 @@ document.getElementById("applyButton").onclick=function(){
     top:document.body.scrollHeight,
     behavior:"smooth"
     });
+    //
+};
     //送信したら応募済みにする
     document.querySelector("form").addEventListener("submit", function(e){
     if(!confirm("応募しますか？")){
@@ -234,9 +238,6 @@ document.getElementById("applyButton").onclick=function(){
     }
     localStorage.setItem("applied","true");
     });
-    //
-};
-
 </script>
 
 </body>
